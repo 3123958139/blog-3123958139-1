@@ -14,8 +14,8 @@ stock_len_ = len(sh_data_frame_)
 ma_len_ = 2
 
 # 打印旧数据作为比较
-print("old_date_ = ", stock_date_)
-print("old_open_ = ", stock_open_)
+print("old_date_ = ", list(stock_date_))
+print("old_open_ = ", list(stock_open_))
 
 # python 结构体定义
 class py_struct_(Structure):

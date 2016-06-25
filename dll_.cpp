@@ -30,6 +30,12 @@ extern "C" {
 
 // 传入结构体指针，传出结构体指针
 cpp_struck_ *dll_function_1(cpp_struck_ *py_struck_pointer_) {
+    /*
+     * 数据处理部分...
+     *
+     *
+     *
+     */
     cpp_struck_ *cpp_struck_pointer_;
     cpp_struck_pointer_ = py_struck_pointer_;
     return cpp_struck_pointer_;
