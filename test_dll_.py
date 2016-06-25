@@ -13,10 +13,16 @@ stock_volume_ = sh_data_frame_['volume'].values
 stock_len_ = len(sh_data_frame_)
 ma_len_ = 2
 
+# 打印旧数据作为比较
+print("old_date_ = ", stock_date_)
+print("old_open_ = ", stock_open_)
+
 # python 结构体定义
 class py_struct_(Structure):
-    _fields_ = [("stock_name_", c_char_p),
-                ("stock_date_", c_char_p * stock_len_),
+    _fields_ = [("stock_name_", c_wchar_p),
+
+                # 注意字符串格式要用 c_wchar_p 而不是 c_char_p
+                ("stock_date_", c_wchar_p * stock_len_),
                 ("stock_open_", c_double * stock_len_),
                 ("stock_high_", c_double * stock_len_),
                 ("stock_low_", c_double * stock_len_),
@@ -28,7 +34,8 @@ class py_struct_(Structure):
 
 # python 结构体实例化，初始化
 py_struct_1 = py_struct_()
-py_struct_1.stock_name_ = stock_name_.encode('utf-8')
+py_struct_1.stock_name_ = stock_name_
+py_struct_1.stock_date_ = (c_wchar_p * stock_len_)(*stock_date_)
 py_struct_1.stock_open_ = (c_double * stock_len_)(*stock_open_)
 
 # 传入指针实例
@@ -47,11 +54,14 @@ cpp_struct_pointer_ = h_dll_.dll_function_1(py_struct_1_pointer_)
 # 结构体指针取内容
 cpp_struct_contents_ = cpp_struct_pointer_.contents
 
-# 打印结果
-print(cpp_struct_contents_.stock_name_.decode('utf-8'))
+# 保存结果为 python list 格式
+new_date_ = []
+for value in cpp_struct_contents_.stock_date_:
+    new_date_.append(value)
+print("new_date_ = ", new_date_)
 
 # 保存结果为 python list 格式
 new_open_ = []
 for value in cpp_struct_contents_.stock_open_:
     new_open_.append(value)
-print(new_open_)
+print("new_open_ = ", new_open_)
