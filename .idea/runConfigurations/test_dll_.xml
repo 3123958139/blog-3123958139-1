@@ -14,6 +14,7 @@
     <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test_dll_.py" />
     <option name="PARAMETERS" value="" />
     <option name="SHOW_COMMAND_LINE" value="true" />
+    <option name="EMULATE_TERMINAL" value="false" />
     <method />
   </configuration>
 </component>
